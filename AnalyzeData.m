@@ -9,11 +9,11 @@ clear all
 close all
 
 % Add paths
-addpath('C:\Users\bae6\Documents\MATLAB\Combination therapy\Matlab files\New analysis_Campana')
+addpath('C:\Users\yal234\Desktop\temp')
 choices = {'Veup', 'LG', 'Var', 'Vpassive', 'Vactive', 'GG analysis', 'GG cal', 'Pcrit', 'Alt Vact', 'Cancel'};
 
 % Load organized data file
-SaveDir = ['C:\Users\bae6\Documents\MATLAB\Combination therapy\Matlab files\New analysis_Campana\Patient_data']; 
+SaveDir = ['C:\Users\yal234\Desktop\temp']; 
 cd(SaveDir)
 [fname, pathname, Findex] = uigetfile('*.mat', 'Select File'); % load file
 cd(pathname)

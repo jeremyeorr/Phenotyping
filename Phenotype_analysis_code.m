@@ -29,13 +29,13 @@ addpath(RouteDir)
 %Specify Directories where you want to load and then save data
 %SaveDir = ['C:\Users\bae6\Documents\MATLAB\Combination therapy\Matlab files\Edwards_newcode\Patient_data']; 
 %SaveDir = ['C:\Users\bae6\Documents\MATLAB\Bariatric study']; 
-SaveDir = ['S:\RESEARCH\STUDIES\3. DATA\Jeremy Orr\COPD phenotyping\Analysis'];
+SaveDir = ['S:\RESEARCH\STUDIES\3. DATA\Jeremy and Bobs PhenotypeEndo Studies\Phenotyping night\AM185_HIV_COPD_Pheno scored and marked'];
 %SaveDir = ['D:\MATLAB\Bariatric study'];
 %LoadDir = ['J:\PEOPLE\FACULTY\EDWARDS\Brad_work\Data\Combination therapy\Trait nights\Scored files']; 
 %LoadDir = ['J:\PEOPLE\FACULTY\EDWARDS\Brad_work\Data\Bariatric surgery\Trait nights\Scored files'];
 %LoadDir = ['S:\MNHS-SPP\Circadia\Projects\Current projects\2015 Oral Appliance [Edwards]\Spike files\Oral Appliance study\Trait nights\Scored Trait nights\MAS_001_04'];
 %LoadDir = ['\\ad.monash.edu\home\User060\bradleye\Desktop\Oral app data'];
-LoadDir = ['S:\RESEARCH\STUDIES\3. DATA\Jeremy Orr\COPD phenotyping'];
+LoadDir = ['S:\RESEARCH\STUDIES\3. DATA\Jeremy and Bobs PhenotypeEndo Studies\Phenotyping night\AM185_HIV_COPD_Pheno scored and marked'];
 %LoadDir = ['D:\Brad_work\Data\Bariatric surgery\Trait nights\Scored files'];
 
 %User inputs the number of files 
@@ -65,10 +65,10 @@ save(saveFile, 'Data','Fs','Time','LoadDir','RouteDir','CurrentDir','n');
 clear all 
 close all
 clc
-addpath('S:\RESEARCH\Software\MATLAB Pcrit software\Phenotyping code mark2')
+addpath('S:\RESEARCH\STUDIES\3. DATA\Jeremy and Bobs PhenotypeEndo Studies\Phenotyping night\AM185_HIV_COPD_Pheno scored and marked\AM185_HIV_COPD_Pheno scored and marked')
 %Loadsaveddata = ['C:\Users\bae6\Documents\MATLAB\Combination therapy\Matlab files\Edwards_newcode\Patient_data']; 
 %Loadsaveddata = ['C:\Users\bae6\Documents\MATLAB\Bariatric study']; 
-Loadsaveddata = ['D:\MATLAB\CRC Detailed Phenotyping'];
+Loadsaveddata = ['S:\RESEARCH\STUDIES\3. DATA\Jeremy and Bobs PhenotypeEndo Studies\Phenotyping night\AM185_HIV_COPD_Pheno scored and marked\AM185_HIV_COPD_Pheno scored and marked'];
 [fname, pathname, Findex] = uigetfile('*.mat', 'Select File'); % load file
 cd(pathname) 
 name = strcat(pathname,fname);
