@@ -10,7 +10,7 @@ close all
 clc
 % Add paths
 %addpath('C:\Users\bae6\Documents\MATLAB\Combination therapy\Matlab files\Edwards_newcode')
-addpath('S:\RESEARCH\Software\MATLAB Pcrit software\Phenotyping code mark2')
+addpath('C:\Users\j1orr\Dropbox\Code\MATLab\Phenotyping')
 %Traits events codes and labels - if defaults setting are used in Spike
 % 1 - Veup
 % 2 - Vpass
@@ -23,20 +23,15 @@ addpath('S:\RESEARCH\Software\MATLAB Pcrit software\Phenotyping code mark2')
 
 %Change RouteDir to the location of IdentifyTimePeriodsofInterest.m 
 %RouteDir = 'C:\Users\bae6\Documents\MATLAB\Combination therapy\Matlab files\Edwards_newcode';
-RouteDir = 'S:\RESEARCH\Software\MATLAB Pcrit software\Phenotyping code mark2';
+RouteDir = 'C:\Users\j1orr\Dropbox\Code\MATLab\Phenotyping';
 addpath(RouteDir)
 
 %Specify Directories where you want to load and then save data
-%SaveDir = ['C:\Users\bae6\Documents\MATLAB\Combination therapy\Matlab files\Edwards_newcode\Patient_data']; 
-%SaveDir = ['C:\Users\bae6\Documents\MATLAB\Bariatric study']; 
-SaveDir = ['S:\RESEARCH\STUDIES\3. DATA\Jeremy and Bobs PhenotypeEndo Studies\Phenotyping night\AM185_HIV_COPD_Pheno scored and marked'];
-%SaveDir = ['D:\MATLAB\Bariatric study'];
-%LoadDir = ['J:\PEOPLE\FACULTY\EDWARDS\Brad_work\Data\Combination therapy\Trait nights\Scored files']; 
-%LoadDir = ['J:\PEOPLE\FACULTY\EDWARDS\Brad_work\Data\Bariatric surgery\Trait nights\Scored files'];
-%LoadDir = ['S:\MNHS-SPP\Circadia\Projects\Current projects\2015 Oral Appliance [Edwards]\Spike files\Oral Appliance study\Trait nights\Scored Trait nights\MAS_001_04'];
-%LoadDir = ['\\ad.monash.edu\home\User060\bradleye\Desktop\Oral app data'];
-LoadDir = ['S:\RESEARCH\STUDIES\3. DATA\Jeremy and Bobs PhenotypeEndo Studies\Phenotyping night\AM185_HIV_COPD_Pheno scored and marked'];
-%LoadDir = ['D:\Brad_work\Data\Bariatric surgery\Trait nights\Scored files'];
+
+SaveDir = ['S:\RESEARCH\STUDIES\3. DATA\Endophenotyping studies\Phenotyping night'];
+
+LoadDir = ['S:\RESEARCH\STUDIES\3. DATA\Endophenotyping studies\Phenotyping night'];
+
 
 %User inputs the number of files 
 [n] = inputdlg('Number of Files'); 
@@ -65,10 +60,9 @@ save(saveFile, 'Data','Fs','Time','LoadDir','RouteDir','CurrentDir','n');
 clear all 
 close all
 clc
-addpath('S:\RESEARCH\STUDIES\3. DATA\Jeremy and Bobs PhenotypeEndo Studies\Phenotyping night\AM185_HIV_COPD_Pheno scored and marked\AM185_HIV_COPD_Pheno scored and marked')
-%Loadsaveddata = ['C:\Users\bae6\Documents\MATLAB\Combination therapy\Matlab files\Edwards_newcode\Patient_data']; 
-%Loadsaveddata = ['C:\Users\bae6\Documents\MATLAB\Bariatric study']; 
-Loadsaveddata = ['S:\RESEARCH\STUDIES\3. DATA\Jeremy and Bobs PhenotypeEndo Studies\Phenotyping night\AM185_HIV_COPD_Pheno scored and marked\AM185_HIV_COPD_Pheno scored and marked'];
+addpath('C:\Users\j1orr\Dropbox\Code\MATLab\Phenotyping')
+
+Loadsaveddata = ['S:\RESEARCH\STUDIES\3. DATA\Endophenotyping studies\Phenotyping night'];
 [fname, pathname, Findex] = uigetfile('*.mat', 'Select File'); % load file
 cd(pathname) 
 name = strcat(pathname,fname);
@@ -141,7 +135,8 @@ for i = 1:length(indxVeup);
     
     %Call Veup.m and calculate variables over the time
     %period of interest
-    [Veupnea.VdotE(i), Veupnea.Cpap(i), Veupnea.Pepi(i), Veupnea.PO2(i), Veupnea.PCO2(i),Veupnea.GGphasic(i), Veupnea.GGtonic(i), Veupnea.GGpeak(i),Veupnea.Ti(i),Veupnea.Te(i),Veupnea.Ttot(i),Veupnea.VT(i)]= Veup(Fs.Vdot, Time.Vdot(a), Data.Vdot(a), Data.Pmask(a), [Time.Epochs(a2), Data.Epochs(a2)], [Data.EvtTimeStart(a3), Data.EvtTimeEnd(a3)], peptemp, pO2temp, pCO2temp, timeGG, tempGG);
+    [Veupnea.VdotE(i), Veupnea.Cpap(i), Veupnea.Pepi(i), Veupnea.PO2(i), Veupnea.PCO2(i),Veupnea.GGphasic(i), Veupnea.GGtonic(i), Veupnea.GGpeak(i),Veupnea.Ti(i),Veupnea.Te(i),Veupnea.Ttot(i),Veupnea.VT(i)]...
+        = Veup(Fs.Vdot, Time.Vdot(a), Data.Vdot(a), Data.Pmask(a), [Time.Epochs(a2), Data.Epochs(a2)], [Data.EvtTimeStart(a3), Data.EvtTimeEnd(a3)], peptemp, pO2temp, pCO2temp, timeGG, tempGG);
     Veupnea.Time(i,:) = Data.Traits1EvtTimeStart(indxVeup(i),:);
 
     subplot(8,1,1)
@@ -204,7 +199,8 @@ for i = 1:length(indxVar);
         tempGG = [];
         timeGG = [];
     end
-    [Var.VdotE(i), Var.Pepi(i), Var.GGphasic(i), Var.GGtonic(i), Var.GGpeak(i), Var.Ti(i), Var.Te(i), Var.Ttot(i), Var.VT(i), Var.AvgCPAP(i), Var.tarousal(i)]= Varousal(Fs.Vdot, Time.Vdot(a), Data.Vdot(a), Data.Pmask(a), [Time.Epochs(a2), Data.Epochs(a2)], [Data.EvtTimeStart(a3), Data.EvtTimeEnd(a3)], peptemp, timeGG, tempGG);
+    [Var.VdotE(i), Var.Pepi(i), Var.GGphasic(i), Var.GGtonic(i), Var.GGpeak(i), Var.Ti(i), Var.Te(i), Var.Ttot(i), Var.VT(i), Var.AvgCPAP(i), Var.tarousal(i)]...
+        = Varousal(Fs.Vdot, Time.Vdot(a), Data.Vdot(a), Data.Pmask(a), [Time.Epochs(a2), Data.Epochs(a2)], [Data.EvtTimeStart(a3), Data.EvtTimeEnd(a3)], peptemp, timeGG, tempGG);
     Var.Time(i,:) = Data.Traits1EvtTimeStart(indxVar(i),:);
     subplot(6,1,1)
     title({['Number ', num2str(i), ' of ', num2str(length(indxVar))]; 'Press Enter to continue'})
@@ -257,7 +253,8 @@ for i = 1:length(indxV0);
         tempGG = [];
         timeGG = [];
     end
-    [V0.VdotE(i), V0.Pepi(i), V0.GGphasic(i), V0.GGtonic(i), V0.GGpeak(i), V0.Ti(i), V0.Te(i), V0.Ttot(i), V0.VT(i), V0.CPAPdrop(i)]= Vzero(Fs.Vdot, Time.Vdot(a), Data.Vdot(a), Data.Pmask(a), [Time.Epochs(a2), Data.Epochs(a2)], [Data.EvtTimeStart(a3), Data.EvtTimeEnd(a3)], peptemp, timeGG, tempGG);
+    [V0.VdotE(i), V0.Pepi(i), V0.GGphasic(i), V0.GGtonic(i), V0.GGpeak(i), V0.Ti(i), V0.Te(i), V0.Ttot(i), V0.VT(i), V0.CPAPdrop(i)]...
+        = Vzero(Fs.Vdot, Time.Vdot(a), Data.Vdot(a), Data.Pmask(a), [Time.Epochs(a2), Data.Epochs(a2)], [Data.EvtTimeStart(a3), Data.EvtTimeEnd(a3)], peptemp, timeGG, tempGG);
     V0.Time(i,:) = Data.Traits1EvtTimeStart(indxV0(i),:);
     subplot(6,1,1)
     title({['Number ', num2str(i), ' of ', num2str(length(indxV0))]; 'Press Enter to continue'})
@@ -278,7 +275,8 @@ for i = 1:length(indxV0);
     a2 = find(Time.Epochs>=Data.Traits1EvtTimeStart(indxV0(i),1)-30 & Time.Epochs<=Data.Traits1EvtTimeEnd(indxV0(i),1));
     a3 = find(Data.EvtTimeEnd>=Data.Traits1EvtTimeStart(indxV0(i),1) & Data.EvtTimeStart<=Data.Traits1EvtTimeEnd(indxV0(i),1));
 
-    [V0.VdotE(i), V0.Ti(i), V0.Te(i), V0.Ttot(i), V0.VT(i), V0.CPAPdrop(i)]= VzeroALT(Fs.Vdot, Time.Vdot(a), Data.Vdot(a), Data.Pmask(a), [Time.Epochs(a2), Data.Epochs(a2)], [Data.EvtTimeStart(a3), Data.EvtTimeEnd(a3)]);
+    [V0.VdotE(i), V0.Ti(i), V0.Te(i), V0.Ttot(i), V0.VT(i), V0.CPAPdrop(i)]...
+        = VzeroALT(Fs.Vdot, Time.Vdot(a), Data.Vdot(a), Data.Pmask(a), [Time.Epochs(a2), Data.Epochs(a2)], [Data.EvtTimeStart(a3), Data.EvtTimeEnd(a3)]);
     V0.Time(i,:) = Data.Traits1EvtTimeStart(indxV0(i),:);
     subplot(6,1,1)
     title({['Number ', num2str(i), ' of ', num2str(length(indxV0))]; 'Press Enter to continue'})
@@ -307,7 +305,8 @@ for i = 1:length(indxLG);
     else
         peptemp= Data.Pepi(a);
     end
-    [LG_2br.LGcampana(i), LG_2br.LGwellman(i), LG_1br.LGcampana(i), LG_1br.LGwellman(i), LG_2br.Vrespcampana(i), LG_1br.Vrespcampana(i), LG_1br.Vdistcampana(i), LG_2br.Vrespwellman(i), LG_1br.Vrespwellman(i), LG_1br.Vdistwellman(i), LG_1br.CPAPmin(i)] = LoopGain(Fs.Vdot, Time.Vdot(a), Data.Vdot(a), Data.Pmask(a), [Time.Epochs(a2), Data.Epochs(a2)], [Data.EvtTimeStart(a3), Data.EvtTimeEnd(a3)], peptemp, mean(Veupnea.VdotE));
+    [LG_2br.LGcampana(i), LG_2br.LGwellman(i), LG_1br.LGcampana(i), LG_1br.LGwellman(i), LG_2br.Vrespcampana(i), LG_1br.Vrespcampana(i), LG_1br.Vdistcampana(i), LG_2br.Vrespwellman(i), LG_1br.Vrespwellman(i), LG_1br.Vdistwellman(i), LG_1br.CPAPmin(i)]...
+        = LoopGain(Fs.Vdot, Time.Vdot(a), Data.Vdot(a), Data.Pmask(a), [Time.Epochs(a2), Data.Epochs(a2)], [Data.EvtTimeStart(a3), Data.EvtTimeEnd(a3)], peptemp, mean(Veupnea.VdotE));
     LG_1br.Time(i,:) = Data.Traits1EvtTimeStart(indxLG(i),:);
 
     subplot(6,1,1)
@@ -350,7 +349,7 @@ for i = 1:length(indxVact);
         pO2temp= Data.PO2(a);
     end
     [Vactive.VdotE(i), Vactive.Vdrive(i), Vactive.Ug(i), Vactive.Cpap(i), Vactive.Pepi(i), Vactive.GGphasic(i),Vactive.GGtonic(i), Vactive.GGpeak(i), Vactive.Ti(i), Vactive.Te(i), Vactive.Ttot(i), Vactive.VT(i), Vactive.Vdotpredrop(i), Vactive.Pepipredrop(i), Vactive.CPAPdrop(i)]=...
-    Uag(Fs.Vdot, Time.Vdot(a), Data.Vdot(a), Data.Pmask(a), [Time.Epochs(a2), Data.Epochs(a2)], [Data.EvtTimeStart(a3), Data.EvtTimeEnd(a3)], peptemp, timeGG, tempGG, nanmean(Veupnea.VdotE), nanmean(LG_1br.LGwellman), nanmean(V0.VdotE), pO2temp);
+        Uag(Fs.Vdot, Time.Vdot(a), Data.Vdot(a), Data.Pmask(a), [Time.Epochs(a2), Data.Epochs(a2)], [Data.EvtTimeStart(a3), Data.EvtTimeEnd(a3)], peptemp, timeGG, tempGG, nanmean(Veupnea.VdotE), nanmean(LG_1br.LGwellman), nanmean(V0.VdotE), pO2temp);
     
     Vactive.Time(i,:) = Data.Traits1EvtTimeStart(indxVact(i),:);
 
@@ -428,10 +427,22 @@ for i = 1:length(indxVact);
     else
         pO2temp= Data.PO2(a);
     end
-    [Vactive.VdotE(i), Vactive.Vdrive(i), Vactive.Ug(i), Vactive.Cpap(i), Vactive.Ti(i), Vactive.Te(i), Vactive.Ttot(i), Vactive.VT(i), Vactive.Vdotpredrop(i), Vactive.CPAPdrop(i)]=...
-    Uag_Alt(Fs.Vdot, Time.Vdot(a), Data.Vdot(a), Data.Pmask(a), [Time.Epochs(a2), Data.Epochs(a2)], [Data.EvtTimeStart(a3), Data.EvtTimeEnd(a3)], nanmean(Veupnea.VdotE), nanmean(LG_1br.LGwellman), nanmean(V0.VdotE), pO2temp);
     
-    Vactive.Time(i,:) = Data.Traits1EvtTimeStart(indxVact(i),:);
+  % Allows Vactive to run whether or not LG has been measured (won't give
+  % UAG however)- JEO
+  
+ 
+    if exist('LG', 'var');
+    % note this uses wellman 1 breath LG to determine UAG
+    [Vactive.VdotE(i), Vactive.Vdrive(i), Vactive.Ug(i), Vactive.Cpap(i), Vactive.Ti(i), Vactive.Te(i), Vactive.Ttot(i), Vactive.VT(i), Vactive.Vdotpredrop(i), Vactive.CPAPdrop(i)]=...
+        Uag_Alt(Fs.Vdot, Time.Vdot(a), Data.Vdot(a), Data.Pmask(a), [Time.Epochs(a2), Data.Epochs(a2)], [Data.EvtTimeStart(a3), Data.EvtTimeEnd(a3)], nanmean(Veupnea.VdotE), nanmean(LG_1br.LGwellman), nanmean(V0.VdotE), pO2temp);
+  
+    else
+    [Vactive.VdotE(i), Vactive.Vdrive(i), Vactive.Ug(i), Vactive.Cpap(i), Vactive.Ti(i), Vactive.Te(i), Vactive.Ttot(i), Vactive.VT(i), Vactive.Vdotpredrop(i), Vactive.CPAPdrop(i)]=...
+      Uag_Alt(Fs.Vdot, Time.Vdot(a), Data.Vdot(a), Data.Pmask(a), [Time.Epochs(a2), Data.Epochs(a2)], [Data.EvtTimeStart(a3), Data.EvtTimeEnd(a3)], nanmean(Veupnea.VdotE), NaN, nanmean(V0.VdotE), pO2temp);
+    end  
+  
+  Vactive.Time(i,:) = Data.Traits1EvtTimeStart(indxVact(i),:);
 
     subplot(6,1,1)
     title({['Number ', num2str(i), ' of ', num2str(length(indxVact))]; 'Press Enter to continue'})
@@ -492,7 +503,7 @@ for i = 1:length(indxVact);
     end
 
 [Vactbaseline.VdotE(i), Vactbaseline.Pepi(i), Vactbaseline.GGphasic(i), Vactbaseline.GGtonic(i), Vactbaseline.GGpeak(i), Vactbaseline.Ti(i), Vactbaseline.Te(i), Vactbaseline.Ttot(i), Vactbaseline.VT(i), Vactbaseline.CPAPmin(i)]=...
-Vactivebaseline(Fs.Vdot, Time.Vdot(a), Data.Vdot(a), Data.Pmask(a), [Time.Epochs(a2), Data.Epochs(a2)], [Data.EvtTimeStart(a3), Data.EvtTimeEnd(a3)], peptemp, timeGG, tempGG);
+    Vactivebaseline(Fs.Vdot, Time.Vdot(a), Data.Vdot(a), Data.Pmask(a), [Time.Epochs(a2), Data.Epochs(a2)], [Data.EvtTimeStart(a3), Data.EvtTimeEnd(a3)], peptemp, timeGG, tempGG);
   
     Vactbaseline.Time(i,:) = Data.Traits1EvtTimeStart(indxVact(i),:);
     subplot(6,1,1)
@@ -512,7 +523,8 @@ for i = 1:length(indxPcrit)
         a = find(Time.Vdot>=Data.Traits2EvtTimeStart(indxPcrit(i),1) & Time.Vdot<=Data.Traits2EvtTimeEnd(indxPcrit(i),1));
         a2 = find(Time.Epochs>=Data.Traits2EvtTimeStart(indxPcrit(i),1)-30 & Time.Epochs<=Data.Traits2EvtTimeEnd(indxPcrit(i),1));
         a3 = find(Data.EvtTimeEnd>=Data.Traits2EvtTimeStart(indxPcrit(i),1) & Data.EvtTimeStart<=Data.Traits2EvtTimeEnd(indxPcrit(i),1));
-        [Pcrit(i).Cpap, Pcrit(i).VdotMax, Pcrit(i).VdotE, Pcrit(i).Time, Pcrit(i).pc Vcrit(i).vc] = PcritCalc(Fs.Vdot, Time.Vdot(a), Data.Vdot(a), Data.Pmask(a), [Time.Epochs(a2), Data.Epochs(a2)], [Data.EvtTimeStart(a3), Data.EvtTimeEnd(a3)], DetectThreshold);
+        [Pcrit(i).Cpap, Pcrit(i).VdotMax, Pcrit(i).VdotE, Pcrit(i).Time, Pcrit(i).pc Vcrit(i).vc]...
+            = PcritCalc(Fs.Vdot, Time.Vdot(a), Data.Vdot(a), Data.Pmask(a), [Time.Epochs(a2), Data.Epochs(a2)], [Data.EvtTimeStart(a3), Data.EvtTimeEnd(a3)], DetectThreshold);
         pause
         close all
         clear a*
@@ -584,7 +596,7 @@ end
 Vcrit_export
 Pcrit_export
 
-%% Modified Pcrit (breakpoint analysis to include zero mask pressure)
+%% Modified Pcrit/Vcrit analysis (breakpoint analysis to include zero mask pressure)
 global Pmaskdata VdotMaxdata VdotEdata fixedslope upperlimit
 close all
 Pmaskdata=[];
@@ -596,7 +608,7 @@ exclude_zeroflowdata=0 % zero indicates include zero data points
 includevpassivedata=0 %1 indicates you want to add in the vpassive data
 plotpoints=1
 
-include_runs=[1 2 3] %manually select which runs to include. Eg. [1]-will graph run 1 [1 2]-will graph runs 1 and 2
+include_runs=[1 2] %manually select which runs to include. Eg. [1]-will graph run 1 [1 2]-will graph runs 1 and 2
 for i=include_runs
 tempsize=size(Pcrit(i).VdotMax);
 N=tempsize(1)*tempsize(2);
@@ -638,13 +650,13 @@ close all;
 global Pmaskdata2 VdotEdata2 fixedslope upperlimit
 Pmaskdata2=[];
 VdotEdata2=[];
-fixedslope=NaN; %use ModPcrit(6) if you want to fix slope=passive slope - NaN otherwise
+fixedslope=1; %use ModPcrit(6) if you want to fix slope=passive slope - NaN otherwise
 upperlimit.on=0;
 exclude_zeroflowdata=0; % zero indicates include zero data points
 plotpoints=1;
 includeVactdrops=1; % Use this setting to include Vactives from zero CPAP
 redonebaselineVE=1; % Make=1 if I've remeasured Ve pre-Vactive drop
-includeVarousaldata=0; %Make=1 if you want to include Varousal data
+includeVarousaldata=1; %Make=1 if you want to include Varousal data
 % currently does nothing - need to add the Varousal data.......
 
 % Lisa code put zero for Ve before drop (if drop was zero) - this code
@@ -792,6 +804,7 @@ subid = inputdlg('Enter subject Id');
 [ArousalThreshold, UAG]=SummarizeData(subid{1}, night, MR, mean(Veupnea.VdotE), nanmean(Var.VdotE), Vactivefinal, Vpassivefinal, Vactive.Ug, -nanmean(LG_1br.LGwellman), Vactive.Cpap, -nanmean(Var.Pepi(Var.Pepi>Pepithreshold)))
 save ArTHandGUA ArousalThreshold UAG night subid
 %% Write Summary data to excel
+
 WriteResultsToExcel(Veupnea, Var, V0, LG, Vactive, Pcrit, Breaths, fit)
 
 %% GG analysis (graphing data individually)

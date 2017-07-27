@@ -145,6 +145,13 @@ if zf == 1
     subplot(numplots,1,4)
     axis auto
 else
+    
+% Use any breaths? Added by JEO
+UseBreaths = listdlg('PromptString','Use Any Breaths?',...
+            'SelectionMode','single', 'ListSize', [150 50],...
+            'ListString',{'Yes','No'});
+
+if UseBreaths==1
     %Ask if we need to redo volume calculation
     CPAPdrop=mean(Pmask(Region2));
     RedoVol = listdlg('PromptString','Fix any volumes?',...
@@ -271,7 +278,6 @@ else
     plot([Time(indVI(breaths(1))),Time(indVI(breaths(end)))], [Vactive Vactive],'g');
     axis([Time(1) Time(end) min(VdotE) max(VdotE)])
     text(double(Time(indVI(breaths(1))))-1,mean(VdotE)+1, strcat('Vactive mean =', num2str(Vactive,3)))
-end
   
 %calculate pepi delta right before arousal
 % Find peaks/valleys of Pepi signal
@@ -355,6 +361,7 @@ if ~isempty(Pepi)
         h2a = plot(Time(mn(aind+2:aind+3,1)), Pepi(mn(aind+2:aind+3,1)),'go');
         h2b = plot(Time(peakind(aind+2:aind+3)), Pepi(peakind(aind+2:aind+3)),'g+');
     end
+end
     
   
 
@@ -395,5 +402,16 @@ else
     GGpeak = nan;
 end
 
+else
+    Vactive = nan;
+    Ti_Vactive = nan;
+    Te_Vactive = nan;
+    Ttot_Vactive = nan;
+    VT_Vactive = nan;
+    Ug = nan;
+    Vdown = nan;
+    Vdrive = nan;
+end
+end
 end
 

@@ -127,20 +127,28 @@ if zf == 1 %if zero flow then V0 = 0
      subplot(numplots,1,4)
    axis([Time(1) Time(end) min(Vdot) max(Vdot)])
 else
+
+% Use any breaths - Added by JEO
+UseBreaths = listdlg('PromptString','Use Any Breaths?',...
+            'SelectionMode','single', 'ListSize', [150 50],...
+            'ListString',{'Yes','No'});
+
+if UseBreaths==1
     %Fix any volume points?
     RedoVol = listdlg('PromptString','Fix any volumes?',...
         'SelectionMode','single', 'ListSize', [150 50],...
         'ListString',{'Yes','No'});
 
-    if RedoVol==1
-        [indVI, indVE] = FixVolumes(Time, vol, indVI, indVE);
-        TidalVol = vol(indVI)-vol(indVE);
-        set(hI, 'Visible', 'off')
-        set(hE, 'Visible', 'off')
-        subplot(numplots,1,4)
-        plot(Time(indVI), vol(indVI),'r+');
-        plot(Time(indVE), vol(indVE),'ro');
-    end
+  if RedoVol==1
+                [indVI, indVE] = FixVolumes(Time, vol, indVI, indVE);
+                TidalVol = vol(indVI)-vol(indVE);
+                set(hI, 'Visible', 'off')
+                set(hE, 'Visible', 'off')
+                subplot(numplots,1,4)
+                plot(Time(indVI), vol(indVI),'r+');
+                plot(Time(indVE), vol(indVE),'ro');
+        
+            
 
     timeVI = Time(indVI);
     timeVE = Time(indVE);
@@ -200,10 +208,18 @@ else
     axis auto
 
     hold on
-    if ~isnan(v0)
+        if ~isnan(v0)
         subplot(numplots,1,4)
         plot([Time(indVI(aind+1)),Time(indVI(aind+1))], [v0 v0],'r');
-    end
+        end
+  end
+else
+    v0 = NaN;
+    Ti_v0 = NaN;
+    Te_v0 = NaN;
+    Ttot_v0 = NaN;
+    VT_v0 = NaN;
+end
 end
 
 

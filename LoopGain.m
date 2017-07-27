@@ -67,6 +67,13 @@ linkaxes(ax,'x')
 scrsz = get(0,'ScreenSize');
 % set(fh,'OuterPosition',[1 1 scrsz(3) scrsz(4)])
 
+% Use any breaths? Added by JEO
+UseBreaths = listdlg('PromptString','Use Any Breaths?',...
+            'SelectionMode','single', 'ListSize', [150 50],...
+            'ListString',{'Yes','No'});
+
+if UseBreaths==1
+
 subplot(6,1,1)
 title('Select Start of increase');
 [x,y] = ginput(1);
@@ -207,4 +214,18 @@ plot([Time(indVI(1)),Time(indVI(end))], [Veupnea Veupnea],'k--');
   else
    text(double(Time(indVI(aind-2)))-1,Veupnea+1.5, strcat('LG (2br avg) =', num2str(LG,3)))
   end
+  
+else
+    LG = NaN;
+    LG2 = NaN;
+    LG3 = NaN;
+    LG4 = NaN;
+    Vup= NaN;
+    Vup_1br= NaN; 
+    Vdown= NaN; 
+    Vup2= NaN;
+    Vup2_1br= NaN; 
+    Vdown2= NaN; 
+    Cdown= NaN;
+end
 end
